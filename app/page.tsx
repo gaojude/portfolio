@@ -36,7 +36,7 @@ export default function Component() {
                 Frontend Engineer
               </div>
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                Hi, I'm Jude
+                Hi, I&apos;m Jude
               </h1>
               <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
                 I build beautiful and accessible web experiences.
