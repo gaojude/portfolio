@@ -16,3 +16,9 @@ model Link {
   description String?
   createdAt   DateTime @default(now())
 }
+
+model Roadmap {
+  id        Int      @id @default(autoincrement())
+  task      String
+  createdAt DateTime @default(now())
+}

@@ -115,6 +115,12 @@ exports.Prisma.LinkScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.RoadmapScalarFieldEnum = {
+  id: 'id',
+  task: 'task',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -132,7 +138,8 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  Link: 'Link'
+  Link: 'Link',
+  Roadmap: 'Roadmap'
 };
 
 /**

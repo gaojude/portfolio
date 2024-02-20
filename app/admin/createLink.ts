@@ -25,6 +25,6 @@ export async function createLink(formData: FormData) {
       description,
     },
   });
-  // TODO: reset form / redirect to links page
-  revalidatePath("/create-link");
+
+  revalidatePath("/admin");
 }

@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
+import Link from "next/link";
 
 const Page = () => {
   return (
@@ -145,6 +146,12 @@ const Page = () => {
           Thank you for joining me on this journey. I'm looking forward to what
           the next chapters will bring and the opportunities to create even more
           impactful user experiences together.
+        </p>
+      </section>
+      <section className="reflection-section mb-10">
+        <h2 className="text-2xl font-semibold mb-4">Connect with me</h2>
+        <p className="mb-5 text-blue-400">
+          <Link href="https://www.linkedin.com/in/jude-gao/">LinkedIn</Link>
         </p>
       </section>
     </>

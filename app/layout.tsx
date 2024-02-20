@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import NavBar from "@/app/NavBar";
-import Search from "@/app/Search";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,12 +23,12 @@ export default function RootLayout({
       >
         <header className="text-center p-5 bg-gray-900">
           <h1 className="text-3xl font-bold">
-            <Link href="/">Jude Gao&apos;s Tech Blog (WIP)</Link>
+            <Link href="/">Jude Gao&apos;s Blog</Link>
           </h1>
-          <p className="text-gray-400">Explorations in Frontend Technology</p>
-
+          <p className="text-gray-400">
+            Based on Next.js, Vercel Postgres, Vercel, Prisma, and Tailwind CSS
+          </p>
           <NavBar />
-          <Search />
         </header>
 
         <main className="max-w-6xl px-8 mx-auto mt-5">{children}</main>
