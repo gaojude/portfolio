@@ -37,3 +37,6 @@ next-env.d.ts
 
 # secrets
 .env
+
+#prisma
+/prisma/generated
