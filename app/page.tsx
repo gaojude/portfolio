@@ -13,19 +13,8 @@ export default function Page({
 
   return (
     <>
-      <div className="bg-gray-800 p-5 rounded-lg shadow-md text-white mb-5">
-        <h2 className="text-xl font-semibold mb-3">
-          Welcome to My Curated Resources Collection
-        </h2>
-        <p>
-          This collection features a handpicked selection of resources that have
-          significantly contributed to my knowledge and expertise in advanced
-          frontend technology. While these are not my own creations, I believe
-          in sharing this valuable repository for the benefit of professionals
-          seeking to enhance their skills. Dive into this compilation to
-          discover insights and tools that can elevate your frontend development
-          work.
-        </p>
+      <div className="mb-5 rounded-lg bg-gray-800 p-5 text-white shadow-md">
+        <h2 className="mb-3 text-xl font-semibold">Quick Links</h2>
       </div>
       <Links isAdmin={isAdmin} />
     </>
@@ -36,65 +25,37 @@ const Links = async ({ isAdmin }: { isAdmin: boolean }) => {
   const links = (await prisma.link.findMany()) as LinkEntity[];
 
   return (
-    <div className="min-h-screen">
-      <table className="min-w-full  leading-normal">
-        <thead>
-          <tr>
-            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-800 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-              Title
-            </th>
-            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-800 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-              URL
-            </th>
-            {isAdmin ? (
-              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-800 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                Action
-              </th>
-            ) : null}
-          </tr>
-        </thead>
-        <tbody>
-          {links.map((link) => (
-            <tr key={link.id} className="hover:bg-gray-700">
-              <td className="px-5 py-2 border-b border-gray-200 bg-gray-800 text-sm">
-                <p className="text-white whitespace-no-wrap">{link.title}</p>
-              </td>
-              <td className="px-5 py-2 border-b border-gray-200 bg-gray-800 text-sm">
-                <Link
-                  href={link.url}
-                  className="text-blue-400 hover:text-blue-600 visited:text-purple-600"
-                  target="_blank"
-                >
-                  {link.url}
-                </Link>
-              </td>
-
-              {isAdmin ? (
-                <td className="px-5 py-2 border-b border-gray-200 bg-gray-800 text-sm">
-                  <form
-                    action={async () => {
-                      "use server";
-                      await prisma.link.delete({
-                        where: {
-                          id: link.id,
-                        },
-                      });
-                      revalidatePath("/admin");
-                    }}
-                  >
-                    <button
-                      type="submit"
-                      className="text-blue-400 hover:text-blue-600 visited:text-purple-600"
-                    >
-                      delete
-                    </button>
-                  </form>
-                </td>
-              ) : null}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div>
+      {links.map((link) => (
+        <p key={link.id}>
+          <Link target="_blank" href={link.url}>
+            {link.title}
+          </Link>
+        </p>
+      ))}
     </div>
   );
 };
+
+// {isAdmin ? (
+//   <td className="border-b border-gray-200 bg-gray-800 px-5 py-2">
+//     <form
+//       action={async () => {
+//         "use server";
+//         await prisma.link.delete({
+//           where: {
+//             id: link.id,
+//           },
+//         });
+//         revalidatePath("/admin");
+//       }}
+//     >
+//       <button
+//         type="submit"
+//         className="text-blue-400 visited:text-purple-600 hover:text-blue-600"
+//       >
+//         delete
+//       </button>
+//     </form>
+//   </td>
+// ) : null}
