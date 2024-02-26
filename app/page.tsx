@@ -6,13 +6,24 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 export default async function Page({
-  searchParams: { u, d },
+  searchParams: { u, d, t },
 }: {
   searchParams: {
     u: string | undefined;
     d: string | undefined;
+    t: string | undefined;
   };
 }) {
+  if (u && t) {
+    await prisma.link.create({
+      data: {
+        url: u,
+        title: t,
+      },
+    });
+
+    redirect("/");
+  }
   if (u) {
     return (
       <form
