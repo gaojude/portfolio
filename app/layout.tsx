@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
-import NavBar from "@/app/NavBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,21 +18,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`dark-mode min-h-screen bg-gray-800 text-white ${inter.className}`}
+        className={`dark-mode min-h-screen bg-gray-900  text-white ${inter.className}`}
       >
-        <header className="text-center p-5 bg-gray-900">
-          <h1 className="text-3xl font-bold">
-            <Link href="/">Jude Gao&apos;s Blog</Link>
-          </h1>
-          <p className="text-gray-400">
-            Based on Next.js, Vercel Postgres, Vercel, Prisma, and Tailwind CSS
-          </p>
-          <NavBar />
+        <header className="mb-5 rounded-lg p-5">
+          <h2 className="mb-3 text-center text-xl font-semibold">
+            <Link href="/">Jude &gt; Bookmarks</Link>
+          </h2>
         </header>
-
-        <main className="max-w-6xl px-8 mx-auto mt-5">{children}</main>
-
-        <footer className="text-center bg-gray-900 mt-5 p-5">
+        <main>{children}</main>
+        <footer className="mt-5 p-5 text-center">
           <p>&copy; 2024 Jude Gao. All rights reserved.</p>
         </footer>
       </body>
