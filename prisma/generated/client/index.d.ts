@@ -882,6 +882,7 @@ export namespace Prisma {
     title: string | null
     ogImageUrl: string | null
     createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type LinkMaxAggregateOutputType = {
@@ -890,6 +891,7 @@ export namespace Prisma {
     title: string | null
     ogImageUrl: string | null
     createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type LinkCountAggregateOutputType = {
@@ -898,6 +900,7 @@ export namespace Prisma {
     title: number
     ogImageUrl: number
     createdAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -916,6 +919,7 @@ export namespace Prisma {
     title?: true
     ogImageUrl?: true
     createdAt?: true
+    updatedAt?: true
   }
 
   export type LinkMaxAggregateInputType = {
@@ -924,6 +928,7 @@ export namespace Prisma {
     title?: true
     ogImageUrl?: true
     createdAt?: true
+    updatedAt?: true
   }
 
   export type LinkCountAggregateInputType = {
@@ -932,6 +937,7 @@ export namespace Prisma {
     title?: true
     ogImageUrl?: true
     createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -1027,6 +1033,7 @@ export namespace Prisma {
     title: string | null
     ogImageUrl: string | null
     createdAt: Date
+    updatedAt: Date
     _count: LinkCountAggregateOutputType | null
     _avg: LinkAvgAggregateOutputType | null
     _sum: LinkSumAggregateOutputType | null
@@ -1054,6 +1061,7 @@ export namespace Prisma {
     title?: boolean
     ogImageUrl?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["link"]>
 
   export type LinkSelectScalar = {
@@ -1062,6 +1070,7 @@ export namespace Prisma {
     title?: boolean
     ogImageUrl?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
   }
 
 
@@ -1074,6 +1083,7 @@ export namespace Prisma {
       title: string | null
       ogImageUrl: string | null
       createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["link"]>
     composites: {}
   }
@@ -1473,6 +1483,7 @@ export namespace Prisma {
     readonly title: FieldRef<"Link", 'String'>
     readonly ogImageUrl: FieldRef<"Link", 'String'>
     readonly createdAt: FieldRef<"Link", 'DateTime'>
+    readonly updatedAt: FieldRef<"Link", 'DateTime'>
   }
     
 
@@ -1779,7 +1790,8 @@ export namespace Prisma {
     url: 'url',
     title: 'title',
     ogImageUrl: 'ogImageUrl',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type LinkScalarFieldEnum = (typeof LinkScalarFieldEnum)[keyof typeof LinkScalarFieldEnum]
@@ -1882,6 +1894,7 @@ export namespace Prisma {
     title?: StringNullableFilter<"Link"> | string | null
     ogImageUrl?: StringNullableFilter<"Link"> | string | null
     createdAt?: DateTimeFilter<"Link"> | Date | string
+    updatedAt?: DateTimeFilter<"Link"> | Date | string
   }
 
   export type LinkOrderByWithRelationInput = {
@@ -1890,6 +1903,7 @@ export namespace Prisma {
     title?: SortOrderInput | SortOrder
     ogImageUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type LinkWhereUniqueInput = Prisma.AtLeast<{
@@ -1901,6 +1915,7 @@ export namespace Prisma {
     title?: StringNullableFilter<"Link"> | string | null
     ogImageUrl?: StringNullableFilter<"Link"> | string | null
     createdAt?: DateTimeFilter<"Link"> | Date | string
+    updatedAt?: DateTimeFilter<"Link"> | Date | string
   }, "id" | "url">
 
   export type LinkOrderByWithAggregationInput = {
@@ -1909,6 +1924,7 @@ export namespace Prisma {
     title?: SortOrderInput | SortOrder
     ogImageUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: LinkCountOrderByAggregateInput
     _avg?: LinkAvgOrderByAggregateInput
     _max?: LinkMaxOrderByAggregateInput
@@ -1925,6 +1941,7 @@ export namespace Prisma {
     title?: StringNullableWithAggregatesFilter<"Link"> | string | null
     ogImageUrl?: StringNullableWithAggregatesFilter<"Link"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Link"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Link"> | Date | string
   }
 
   export type LinkCreateInput = {
@@ -1932,6 +1949,7 @@ export namespace Prisma {
     title?: string | null
     ogImageUrl?: string | null
     createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type LinkUncheckedCreateInput = {
@@ -1940,6 +1958,7 @@ export namespace Prisma {
     title?: string | null
     ogImageUrl?: string | null
     createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type LinkUpdateInput = {
@@ -1947,6 +1966,7 @@ export namespace Prisma {
     title?: NullableStringFieldUpdateOperationsInput | string | null
     ogImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LinkUncheckedUpdateInput = {
@@ -1955,6 +1975,7 @@ export namespace Prisma {
     title?: NullableStringFieldUpdateOperationsInput | string | null
     ogImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LinkCreateManyInput = {
@@ -1963,6 +1984,7 @@ export namespace Prisma {
     title?: string | null
     ogImageUrl?: string | null
     createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type LinkUpdateManyMutationInput = {
@@ -1970,6 +1992,7 @@ export namespace Prisma {
     title?: NullableStringFieldUpdateOperationsInput | string | null
     ogImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LinkUncheckedUpdateManyInput = {
@@ -1978,6 +2001,7 @@ export namespace Prisma {
     title?: NullableStringFieldUpdateOperationsInput | string | null
     ogImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -2043,6 +2067,7 @@ export namespace Prisma {
     title?: SortOrder
     ogImageUrl?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type LinkAvgOrderByAggregateInput = {
@@ -2055,6 +2080,7 @@ export namespace Prisma {
     title?: SortOrder
     ogImageUrl?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type LinkMinOrderByAggregateInput = {
@@ -2063,6 +2089,7 @@ export namespace Prisma {
     title?: SortOrder
     ogImageUrl?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type LinkSumOrderByAggregateInput = {

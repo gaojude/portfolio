@@ -10,8 +10,8 @@ const Layout = ({
   urlInput: ReactNode;
 }) => {
   return (
-    <div className="flex h-screen flex-col items-center justify-center bg-gray-100 dark:bg-gray-900">
-      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg dark:bg-gray-800">
+    <div className="lex fixed inset-0 flex flex-col items-center justify-center">
+      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
         <h1 className="mb-4 text-2xl font-bold dark:text-gray-200">
           Create Bookmark
         </h1>

@@ -14,7 +14,7 @@ const Page = async ({
   const { ogImage, title } = await fetchMetadataForUrl(decodeURIComponent(url));
 
   return (
-    <div className="border-t pt-4 dark:border-gray-600">
+    <div className="border-t pt-4">
       <LinkTile url={url} title={title} ogImage={ogImage} />
 
       <div className="flex justify-end space-x-2 pt-4">
