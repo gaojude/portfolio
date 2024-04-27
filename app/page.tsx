@@ -10,6 +10,9 @@ const Page = async ({
     orderBy: {
       updatedAt: "desc",
     },
+    where: {
+      deleted: false,
+    },
   });
 
   return (

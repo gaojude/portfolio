@@ -113,7 +113,8 @@ exports.Prisma.LinkScalarFieldEnum = {
   title: 'title',
   ogImageUrl: 'ogImageUrl',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deleted: 'deleted'
 };
 
 exports.Prisma.SortOrder = {

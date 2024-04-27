@@ -54,9 +54,12 @@ export const LinkTile = ({
         action={async () => {
           "use server";
 
-          await prisma.link.delete({
+          await prisma.link.update({
             where: {
               id: id!,
+            },
+            data: {
+              deleted: true,
             },
           });
 
