@@ -18,7 +18,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
               href="/"
             >
               <MountainIcon className="h-6 w-6" />
-              <span>Jude&apos;s Bookmarks</span>
+              <span>Bookmarks</span>
             </Link>
 
             <Link

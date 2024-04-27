@@ -64,5 +64,9 @@ export const LinkTile = ({
     );
   }
 
-  return <Link href={url}>{jsx}</Link>;
+  return (
+    <Link href={decodeURIComponent(url)} target="_blank">
+      {jsx}
+    </Link>
+  );
 };
