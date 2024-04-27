@@ -9,7 +9,7 @@ const Page = () => {
       placeholder="Enter a URL"
       type="url"
       name="url"
-      value=""
+      defaultValue=""
     />
   );
 };

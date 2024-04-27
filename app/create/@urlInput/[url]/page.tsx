@@ -9,7 +9,7 @@ const Page = ({ params: { url } }: { params: { url: string } }) => {
       placeholder="Enter a URL"
       type="url"
       name="url"
-      value={decodeURIComponent(url)}
+      defaultValue={decodeURIComponent(url)}
     />
   );
 };
