@@ -4,7 +4,7 @@ export const fetchMetadataForUrl = async (
   url: string,
 ): Promise<{
   title: string;
-  ogImage: string;
+  ogImage: string | null;
 }> => {
   let postData;
 
@@ -25,10 +25,6 @@ export const fetchMetadataForUrl = async (
 
   if (!title) {
     throw new Error(`No title found for ${url}`);
-  }
-
-  if (!ogImage) {
-    throw new Error(`No OG image found for ${url}`);
   }
 
   return { title, ogImage };
