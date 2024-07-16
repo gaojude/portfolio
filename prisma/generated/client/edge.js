@@ -127,7 +127,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/judegao/projects/portfolio/prisma/generated/client",
+      "value": "/Users/judegao/faire/portfolio/prisma/generated/client",
       "fromEnvVar": null
     },
     "config": {
@@ -144,8 +144,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../..",
   "clientVersion": "5.9.1",
@@ -154,7 +153,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "ciName": "Vercel",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -164,7 +163,8 @@ const config = {
     }
   },
   "inlineSchema": "ZGF0YXNvdXJjZSBkYiB7CiAgcHJvdmlkZXIgID0gInBvc3RncmVzcWwiCiAgdXJsICAgICAgID0gZW52KCJQT1NUR1JFU19QUklTTUFfVVJMIikKICBkaXJlY3RVcmwgPSBlbnYoIlBPU1RHUkVTX1VSTF9OT05fUE9PTElORyIpCn0KCmdlbmVyYXRvciBjbGllbnQgewogIHByb3ZpZGVyID0gInByaXNtYS1jbGllbnQtanMiCiAgb3V0cHV0ICAgPSAiLi9nZW5lcmF0ZWQvY2xpZW50Igp9Cgptb2RlbCBMaW5rIHsKICBpZCAgICAgICAgIEludCAgICAgIEBpZCBAZGVmYXVsdChhdXRvaW5jcmVtZW50KCkpCiAgdXJsICAgICAgICBTdHJpbmcgICBAdW5pcXVlCiAgdGl0bGUgICAgICBTdHJpbmc/CiAgb2dJbWFnZVVybCBTdHJpbmc/CiAgY3JlYXRlZEF0ICBEYXRlVGltZSBAZGVmYXVsdChub3coKSkKICB1cGRhdGVkQXQgIERhdGVUaW1lIEB1cGRhdGVkQXQKICBkZWxldGVkICAgIEJvb2xlYW4gIEBkZWZhdWx0KGZhbHNlKQp9Cg==",
-  "inlineSchemaHash": "121f9d85c6f8fdf609921b58e43a496af5fc7c53c50ca5fbddd1eef623cdd647"
+  "inlineSchemaHash": "121f9d85c6f8fdf609921b58e43a496af5fc7c53c50ca5fbddd1eef623cdd647",
+  "noEngine": false
 }
 config.dirname = '/'
 

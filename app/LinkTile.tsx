@@ -2,6 +2,7 @@ import { XIcon } from "lucide-react";
 import { prisma } from "@/app/prisma";
 import { revalidatePath } from "next/cache";
 import { ClientLink } from "@/app/ClientLink";
+import { PLACEHOLDER_IMAGE_URL } from "@/app/_utils/placeholderImageUrl";
 
 export const LinkTile = ({
   url,
@@ -28,7 +29,7 @@ export const LinkTile = ({
         <img
           alt="URL Screenshot"
           className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
-          src={ogImage || "#"}
+          src={ogImage || PLACEHOLDER_IMAGE_URL}
           style={{
             aspectRatio: "320/340",
             objectFit: "fill",
