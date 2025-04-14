@@ -180,7 +180,7 @@ function Stylesheet() {
     <style>{`
       .split-sentence,
       .split-word,
-      split-grapheme {
+      .split-grapheme {
           will-change: transform, opacity;
       }
   `}</style>
