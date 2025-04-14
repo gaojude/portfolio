@@ -43,7 +43,6 @@ export const ParseToMarkdown = async ({
   return (
     <div
       data-message-id={messageId}
-      className="animate-fade-in motion-safe:animate-fadeIn"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
