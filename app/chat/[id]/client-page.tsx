@@ -2,6 +2,7 @@
 import { ReactNode, useState, useEffect, useRef } from "react";
 import { Message } from "../types";
 import { RenderFromPending } from "./render-from-pending";
+import SplitText from "@/components/split-text";
 
 const ScrollToBottomButton = ({ onClick }: { onClick: () => void }) => (
   <button
@@ -85,24 +86,26 @@ export default function ClientPage({
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col gap-4">
-        {messages.length === 0 ||
-        (Array.isArray(messages[0]) &&
-          messages.length === 1 &&
-          messages[0].length === 0) ? (
-          <div className="flex flex-col items-center justify-center py-12 text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">
-              Welcome to Fast Chat
-            </h1>
-            <div className="text-gray-600 max-w-md mb-8">
-              <p>Start a conversation by typing a message below.</p>
-              <p>Use Shift + Enter to quickly send messages.</p>
+      <SplitText asChild>
+        <div className="flex flex-col gap-4">
+          {messages.length === 0 ||
+          (Array.isArray(messages[0]) &&
+            messages.length === 1 &&
+            messages[0].length === 0) ? (
+            <div className="flex flex-col items-center justify-center py-12 text-center">
+              <h1 className="text-2xl font-bold text-gray-900 mb-4">
+                Welcome to Fast Chat
+              </h1>
+              <div className="text-gray-600 max-w-md mb-8">
+                <p>Start a conversation by typing a message below.</p>
+                <p>Use Shift + Enter to quickly send messages.</p>
+              </div>
             </div>
-          </div>
-        ) : (
-          messages
-        )}
-      </div>
+          ) : (
+            messages
+          )}
+        </div>
+      </SplitText>
       {showScrollButton && (
         <ScrollToBottomButton
           onClick={() => {
