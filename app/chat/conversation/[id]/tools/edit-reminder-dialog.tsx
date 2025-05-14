@@ -64,11 +64,10 @@ export function EditReminderDialog({
       saveToolCallResult(
         isCompleted
           ? {
-              success: true,
+              result: "approved",
             }
           : {
-              success: false,
-              message: "User declined to edit or delete reminder",
+              result: "user rejected",
             }
       )
         .then(() => {
@@ -84,7 +83,14 @@ export function EditReminderDialog({
     <>
       {node}
       {(isCompleted || isRejected) && messageCreated ? (
-        <>{isCompleted ? "Action completed" : "Action rejected"}</>
+        <div className="p-4 bg-white rounded-lg shadow border border-blue-100">
+          <div className="flex items-center mb-3">
+            <span className="text-2xl mr-2">{isCompleted ? "✅" : "❌"}</span>
+            <h3 className="text-lg font-semibold">
+              {isCompleted ? "Action completed" : "Action rejected"}
+            </h3>
+          </div>
+        </div>
       ) : (
         <div className="p-4 bg-white rounded-lg shadow border border-blue-100">
           <div className="flex items-center mb-3">
