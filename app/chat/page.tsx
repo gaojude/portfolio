@@ -15,7 +15,7 @@ import {
   deleteAllConversations,
 } from "../db/redis";
 
-export default async function Page() {
+async function PageContent() {
   const { userId } = await auth();
 
   if (!userId) {
@@ -36,6 +36,34 @@ export default async function Page() {
         </Suspense>
       </div>
     </div>
+  );
+}
+
+const ChatPageFallback = () => {
+  return (
+    <div className="bg-gradient-to-br from-gray-50 via-white to-indigo-50/30 min-h-screen">
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="mb-8">
+          <div className="text-center mb-8">
+            <div className="h-12 bg-gray-200 rounded-lg w-80 mx-auto mb-3 animate-pulse"></div>
+            <div className="h-6 bg-gray-200 rounded-lg w-96 mx-auto animate-pulse"></div>
+          </div>
+          <div className="flex justify-center mb-8">
+            <div className="h-12 bg-gray-200 rounded-xl w-48 animate-pulse"></div>
+          </div>
+        </div>
+        <ConversationsLoadingSkeleton />
+        <PersonalContextLoadingSkeleton />
+      </div>
+    </div>
+  );
+};
+
+export default function Page() {
+  return (
+    <Suspense fallback={<ChatPageFallback />}>
+      <PageContent />
+    </Suspense>
   );
 }
 

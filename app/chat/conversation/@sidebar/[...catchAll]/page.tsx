@@ -1,7 +1,9 @@
 import { auth } from "@clerk/nextjs/server";
 import { getConversationsByUser, createConversation } from "@/app/db/redis";
 import ConversationList from "./conversations-list";
+import ConversationsLoadingSkeleton from "./conversations-loading-skeleton";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 async function Conversations() {
   const { userId } = await auth();
@@ -62,7 +64,9 @@ export default function Page() {
             </button>
           </form>
         </div>
-        <Conversations />
+        <Suspense fallback={<ConversationsLoadingSkeleton />}>
+          <Conversations />
+        </Suspense>
       </div>
     </div>
   );

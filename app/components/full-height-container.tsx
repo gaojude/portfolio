@@ -1,6 +1,4 @@
-"use client";
-
-import { ReactNode, useRef, useLayoutEffect } from "react";
+import { ReactNode } from "react";
 
 interface FullHeightContainerProps {
   children: ReactNode;
@@ -13,33 +11,13 @@ export default function FullHeightContainer({
   offset = 0,
   className = "",
 }: FullHeightContainerProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useLayoutEffect(() => {
-    const updateHeight = () => {
-      if (containerRef.current) {
-        const windowHeight = window.innerHeight;
-        containerRef.current.style.height = `${windowHeight - offset}px`;
-      }
-    };
-
-    // Set initial height
-    updateHeight();
-
-    // Update height on resize
-    window.addEventListener("resize", updateHeight);
-
-    // Handle orientation change specifically for mobile devices
-    window.addEventListener("orientationchange", updateHeight);
-
-    return () => {
-      window.removeEventListener("resize", updateHeight);
-      window.removeEventListener("orientationchange", updateHeight);
-    };
-  }, [offset]);
-
+  const offsetStyle = offset > 0 ? { height: `calc(100dvh - ${offset}px)` } : { height: '100dvh' };
+  
   return (
-    <div ref={containerRef} className={className}>
+    <div 
+      style={offsetStyle}
+      className={className}
+    >
       {children}
     </div>
   );
