@@ -1,4 +1,13 @@
-export default function Page() {
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+
+export default async function Page() {
+  const { userId } = await auth();
+  
+  if (userId) {
+    redirect("/chat");
+  }
+
   return (
     <div className="px-4 max-w-full">
       <div className="flex flex-wrap justify-center gap-6 my-8">
