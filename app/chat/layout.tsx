@@ -78,7 +78,8 @@ const TopNav = () => {
             </div>
             <span className="font-medium">Home</span>
           </Link>
-          <Link
+          {/* AGENT ICON (WIP) */}
+          {/* <Link
             href="/chat/agent"
             className="flex items-center gap-3 text-gray-700 hover:text-indigo-600 transition-colors group"
           >
@@ -101,7 +102,7 @@ const TopNav = () => {
               </svg>
             </div>
             <span className="font-medium">Agent</span>
-          </Link>
+          </Link> */}
         </div>
         <div className="flex items-center gap-4">
           <div className="text-gray-700">
