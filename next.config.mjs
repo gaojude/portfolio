@@ -1,17 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    dynamicIO: true,
-    ppr: true,
+    cacheComponents: true,
     inlineCss: true,
     reactCompiler: true,
     viewTransition: true,
-    clientSegmentCache: true
+    clientSegmentCache: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
   },
-  reactStrictMode: false
+  reactStrictMode: false,
 };
 
 export default nextConfig;

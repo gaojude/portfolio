@@ -27,26 +27,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Suspense>
-      <ClerkProvider afterSignOutUrl="/chat">
-        <html
-          lang="en"
-          suppressHydrationWarning
-          className={`${geistSans.variable} ${geistMono.variable}`}
-        >
-          <head>
-            <meta
-              name="viewport"
-              content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-            />
-          </head>
-          <body className="antialiased bg-grey-50">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable}`}
+    >
+      <head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+        />
+      </head>
+      <body className="antialiased bg-grey-50">
+        <Suspense>
+          <ClerkProvider afterSignOutUrl="/chat">
             <TopNav />
             {children}
-          </body>
-        </html>
-      </ClerkProvider>
-    </Suspense>
+          </ClerkProvider>
+        </Suspense>
+      </body>
+    </html>
   );
 }
 
