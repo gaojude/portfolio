@@ -1,8 +1,8 @@
 "use server";
 
 import { createNotes } from "@/app/db/redis";
-import { openai } from "@ai-sdk/openai";
 import { CoreMessage, Message, generateText, streamText } from "ai";
+import { DEFAULT_MODEL } from "@/lib/models";
 
 export type Phase = "zero-to-one" | "one-to-many";
 
@@ -36,7 +36,7 @@ export const getNextMessage = async (
 
   const stream = await generateText({
     // TODO: responder neeeds to be Gemini 2.5 flash with Google Search grounding
-    model: party === "responder" ? openai("gpt-4o") : openai("gpt-4o"),
+    model: DEFAULT_MODEL,
     messages: allMessages,
   });
 
@@ -45,7 +45,7 @@ export const getNextMessage = async (
 
 export const getDraftFromMessages = async (messages: Message[]) => {
   const { textStream } = await streamText({
-    model: openai("gpt-4.1"),
+    model: DEFAULT_MODEL,
     messages: [
       {
         role: "system",

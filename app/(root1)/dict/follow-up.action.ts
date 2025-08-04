@@ -1,12 +1,12 @@
 "use server";
 
-import { openai } from "@ai-sdk/openai";
 import { streamText } from "ai";
+import { DEFAULT_MODEL } from "@/lib/models";
 
 export async function* getQueryFollowUp(query: string, userPrompt: string) {
   const reader = await (
     await streamText({
-      model: openai("gpt-4o"),
+      model: DEFAULT_MODEL,
       messages: [
         {
           role: "system",

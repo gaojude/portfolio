@@ -1,9 +1,9 @@
-import { openai } from "@ai-sdk/openai";
 import { generateText } from "ai";
+import { DEFAULT_MODEL } from "@/lib/models";
 
 export async function translateTextToChinese(text: string) {
   const { text: translatedText } = await generateText({
-    model: openai("gpt-4o-mini"),
+    model: DEFAULT_MODEL,
     messages: [
       {
         role: "system",
@@ -22,7 +22,7 @@ export async function translateTextToChinese(text: string) {
 export async function translatePageToChinese(text: string) {
   console.log("start to translate for page size ", text.length);
   const { text: translatedText } = await generateText({
-    model: openai("gpt-4o-mini"),
+    model: DEFAULT_MODEL,
     messages: [
       {
         role: "system",

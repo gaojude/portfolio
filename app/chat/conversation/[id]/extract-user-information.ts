@@ -2,8 +2,8 @@
 // For example, if the message is "I'm in Toronto. How's the weather today?",
 // the extracted information should be something like "The user lives in Toronto".
 
-import { openai } from "@ai-sdk/openai";
 import { generateObject } from "ai";
+import { DEFAULT_MODEL } from "@/lib/models";
 import { z } from "zod";
 import { addUserInformation } from "@/app/db/redis";
 
@@ -19,7 +19,7 @@ export async function extractUserInformation(
   message: string
 ): Promise<UserInformation> {
   const { object } = await generateObject({
-    model: openai("gpt-4o-mini"),
+    model: DEFAULT_MODEL,
     schema: UserInformationSchema,
     messages: [
       {

@@ -5,6 +5,7 @@ import {
   experimental_generateImage as generateImage,
   generateObject,
 } from "ai";
+import { DEFAULT_MODEL } from "@/lib/models";
 
 import { z } from "zod";
 
@@ -125,7 +126,7 @@ const RenderSearch = async ({ query }: { query: string }) => {
 
   const reader = await (
     await streamText({
-      model: openai("gpt-4o-mini"),
+      model: DEFAULT_MODEL,
       messages: [
         {
           role: "system",

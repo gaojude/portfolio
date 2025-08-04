@@ -2,7 +2,7 @@ import { z } from "zod";
 import { createNotes, getMessagesByConversation } from "@/app/db/redis";
 import { ExecuteFunction } from "../tools";
 import { generateObject } from "ai";
-import { openai } from "@ai-sdk/openai";
+import { DEFAULT_MODEL } from "@/lib/models";
 import Link from "next/link";
 import { headers } from "next/headers";
 
@@ -44,7 +44,7 @@ export const execute: ExecuteFunction<ParamsType> = async ({
       .join("\n");
 
     const { object } = await generateObject({
-      model: openai("gpt-4.1"),
+      model: DEFAULT_MODEL,
       messages: [
         {
           role: "system",

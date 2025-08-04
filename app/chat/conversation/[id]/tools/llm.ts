@@ -1,13 +1,13 @@
-import { google } from "@ai-sdk/google";
 import { CoreMessage, LanguageModelV1, streamText } from "ai";
 import { TOOLS } from "./supported-tools/tools";
 import { getUserInformation, Message } from "@/app/db/redis";
+import { DEFAULT_MODEL } from "@/lib/models";
 
 export const getLlmStream = async (messages: Message[]) => {
   const userInformation = (await getUserInformation()).join(" ");
 
   return await streamText({
-    model: google("gemini-2.0-flash") as LanguageModelV1,
+    model: DEFAULT_MODEL as LanguageModelV1,
     messages: [
       {
         role: "system",
