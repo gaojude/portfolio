@@ -5,7 +5,7 @@ import {
   deleteAllConversations,
   getConversationsByUser,
 } from "@/app/db/redis";
-import { RenderFromPending } from "../render-from-pending";
+import { RenderFromPending } from "../../[id]/render-from-pending";
 import { redirect } from "next/navigation";
 
 interface Conversation {
