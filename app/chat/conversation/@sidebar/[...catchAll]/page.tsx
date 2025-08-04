@@ -13,11 +13,25 @@ async function Conversations() {
 
 export default function Page() {
   return (
-    <div className="w-64 border-r border-gray-200 bg-white h-[calc(100vh-60px)] overflow-y-auto hidden md:block">
-      <div className="p-4">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="pl-2 text-lg font-semibold text-gray-900">
-            Conversations
+    <div className="h-[calc(100vh-60px)] overflow-y-auto hidden md:block">
+      <div className="p-6">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+            <div className="w-6 h-6 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-md flex items-center justify-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 text-white"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+            Chats
           </h2>
           <form
             action={async () => {
@@ -28,26 +42,24 @@ export default function Page() {
               redirect(`/chat/conversation/${conversation.id}`);
             }}
           >
-            <div>
-              <button
-                type="submit"
-                className="p-1 rounded-md text-sm font-medium text-gray-900 hover:bg-gray-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#4A154B] transition-all duration-200 border border-gray-900 grid place-items-center"
-                title="New Conversation"
+            <button
+              type="submit"
+              className="p-2 rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-700 text-white hover:from-indigo-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
+              title="New Conversation"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                viewBox="0 0 20 20"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M10 4v12M4 10h12" />
-                </svg>
-              </button>
-            </div>
+                <path d="M10 4v12M4 10h12" />
+              </svg>
+            </button>
           </form>
         </div>
         <Conversations />

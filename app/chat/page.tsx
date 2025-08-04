@@ -24,8 +24,8 @@ export default async function Page() {
   }
 
   return (
-    <div className="bg-white text-gray-900 min-h-screen p-6">
-      <div className="max-w-6xl mx-auto">
+    <div className="bg-gradient-to-br from-gray-50 via-white to-indigo-50/30 min-h-screen">
+      <div className="max-w-7xl mx-auto px-6 py-8">
         <NewChat userId={userId} />
 
         <Suspense fallback={<ConversationsLoadingSkeleton />}>
@@ -46,12 +46,17 @@ export default async function Page() {
 
 const NewChat = ({ userId }: { userId: string }) => {
   return (
-    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 border-b border-gray-200 pb-4">
-      <h1 className="text-2xl font-bold text-gray-900">My Conversations</h1>
-      <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
-        <Suspense fallback={null}>
-          <ClearAllButton userId={userId} />
-        </Suspense>
+    <div className="mb-8">
+      <div className="text-center mb-8">
+        <h1 className="text-4xl font-bold text-gradient mb-3">
+          AI Conversations
+        </h1>
+        <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          Start meaningful conversations and explore ideas with AI assistance
+        </p>
+      </div>
+      
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8">
         <form
           action={async () => {
             "use server";
@@ -61,11 +66,11 @@ const NewChat = ({ userId }: { userId: string }) => {
         >
           <button
             type="submit"
-            className="w-full sm:w-auto flex items-center justify-center py-2 px-6 rounded-md text-sm font-medium text-white bg-gray-900 hover:bg-[#611f69] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#4A154B] transition-colors"
+            className="button-primary flex items-center gap-3"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 mr-2"
+              className="h-5 w-5"
               viewBox="0 0 20 20"
               fill="currentColor"
             >
@@ -75,12 +80,16 @@ const NewChat = ({ userId }: { userId: string }) => {
                 clipRule="evenodd"
               />
             </svg>
-            New Chat
-            <span className="ml-2">
+            Start New Chat
+            <span className="ml-1">
               <SpinnerInForm />
             </span>
           </button>
         </form>
+        
+        <Suspense fallback={null}>
+          <ClearAllButton userId={userId} />
+        </Suspense>
       </div>
     </div>
   );
@@ -103,11 +112,11 @@ const ClearAllButton = async ({ userId }: { userId: string }) => {
     >
       <button
         type="submit"
-        className="w-full sm:w-auto flex items-center justify-center py-2 px-6 rounded-md text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors"
+        className="button-danger flex items-center gap-2"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 mr-2"
+          className="h-4 w-4"
           viewBox="0 0 20 20"
           fill="currentColor"
         >
@@ -118,7 +127,7 @@ const ClearAllButton = async ({ userId }: { userId: string }) => {
           />
         </svg>
         Clear All
-        <span className="ml-2">
+        <span className="ml-1">
           <SpinnerInForm />
         </span>
       </button>
@@ -130,38 +139,64 @@ const PersonalContext = async () => {
   const userInfo = await getUserInformation();
 
   return (
-    <div className="mb-8 mt-8">
-      <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 mr-2 text-[#4A154B]"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fillRule="evenodd"
-            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-            clipRule="evenodd"
-          />
-        </svg>
+    <div className="mb-12">
+      <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3">
+        <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 text-white"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </div>
         Personal Context
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {userInfo.map((info, index) => (
-          <div key={index} className="relative">
-            <div className="p-4 bg-white rounded-md border border-gray-200 hover:border-[#4A154B] transition-colors shadow-sm pr-10">
-              <p className="text-sm text-gray-700">{info}</p>
+      
+      {userInfo.length === 0 ? (
+        <div className="text-center py-16">
+          <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-10 w-10 text-green-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+              />
+            </svg>
+          </div>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">No personal context yet</h3>
+          <p className="text-gray-600 max-w-md mx-auto">
+            Share information about yourself to help AI provide more personalized responses
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {userInfo.map((info, index) => (
+            <div key={index} className="group relative card-modern p-5">
+              <p className="text-sm text-gray-700 leading-relaxed pr-8">{info}</p>
               <form
                 action={async () => {
                   "use server";
                   await deleteUserInformation(info);
                   revalidatePath("/chat");
                 }}
-                className="absolute top-2 right-2"
+                className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"
               >
                 <button
                   type="submit"
-                  className="p-1.5 rounded-full text-gray-400 hover:text-red-500 hover:bg-gray-100 transition-colors"
+                  className="p-2 rounded-full text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
                   title="Delete information"
                 >
                   <RenderFromPending
@@ -186,14 +221,9 @@ const PersonalContext = async () => {
                 </button>
               </form>
             </div>
-          </div>
-        ))}
-        {userInfo.length === 0 && (
-          <div className="col-span-full text-center py-12 bg-gray-50 rounded-md border border-gray-200">
-            <p className="text-gray-500">No personal information stored yet.</p>
-          </div>
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
@@ -201,18 +231,63 @@ const PersonalContext = async () => {
 const ListConversations = async ({ userId }: { userId: string }) => {
   const conversations = await getConversationsByUser(userId);
 
+  if (conversations.length === 0) {
+    return (
+      <div className="text-center py-16">
+        <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-12 w-12 text-indigo-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+            />
+          </svg>
+        </div>
+        <h3 className="text-xl font-semibold text-gray-900 mb-2">No conversations yet</h3>
+        <p className="text-gray-600 max-w-md mx-auto">
+          Start your first conversation and explore the possibilities of AI assistance
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="mb-12">
+      <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3">
+        <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 text-white"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </div>
+        Recent Conversations
+      </h2>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {conversations.map((conversation) => (
-          <div key={conversation.id} className="relative">
+          <div key={conversation.id} className="conversation-item">
             <Link
               href={`/chat/conversation/${conversation.id}`}
-              className="block p-4 bg-white rounded-md border border-gray-200 hover:border-[#4A154B] hover:shadow-md transition-all duration-200"
+              className="block"
             >
-              <div className="flex items-start space-x-3">
+              <div className="flex items-start space-x-4">
                 <div className="flex-shrink-0">
-                  <div className="w-10 h-10 rounded-md bg-[#4A154B] flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6 text-white"
@@ -230,11 +305,13 @@ const ListConversations = async ({ userId }: { userId: string }) => {
                   </div>
                 </div>
                 <div className="flex-1 min-w-0 pr-8">
-                  <Suspense fallback={null}>
+                  <Suspense fallback={
+                    <div className="h-5 bg-gray-200 rounded animate-pulse mb-2"></div>
+                  }>
                     <ConversationPreview conversationId={conversation.id} />
                   </Suspense>
-                  <p className="text-xs text-gray-500 mt-1">
-                    ID: {conversation.id.slice(0, 8)}...
+                  <p className="text-xs text-gray-500 font-mono">
+                    {conversation.id.slice(0, 8)}...
                   </p>
                 </div>
               </div>
@@ -243,14 +320,13 @@ const ListConversations = async ({ userId }: { userId: string }) => {
               action={async () => {
                 "use server";
                 await deleteConversation(conversation.id, userId);
-
                 revalidatePath("/chat");
               }}
-              className="absolute top-2 right-2"
+              className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"
             >
               <button
                 type="submit"
-                className="p-1.5 rounded-full text-gray-400 hover:text-red-500 hover:bg-gray-100 transition-colors"
+                className="p-2 rounded-full text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
                 title="Delete conversation"
               >
                 <RenderFromPending
@@ -277,15 +353,7 @@ const ListConversations = async ({ userId }: { userId: string }) => {
           </div>
         ))}
       </div>
-
-      {conversations.length === 0 && (
-        <div className="text-center py-12 bg-gray-50 rounded-md mt-4 border border-gray-200">
-          <p className="text-gray-500">
-            No conversations yet. Start a new chat!
-          </p>
-        </div>
-      )}
-    </>
+    </div>
   );
 };
 
@@ -319,10 +387,14 @@ const ConversationPreview = async ({
 }) => {
   const message = await getFirstMessageOfConversation(conversationId);
   if (message?.role !== "user" || typeof message?.content !== "string") {
-    return null;
+    return (
+      <p className="text-sm font-medium text-gray-600 italic">
+        New Conversation
+      </p>
+    );
   }
   return (
-    <p className="text-sm font-medium text-gray-800 truncate">
+    <p className="text-sm font-medium text-gray-800 line-clamp-2 leading-relaxed mb-1">
       {message?.content || "New Conversation"}
     </p>
   );
@@ -345,65 +417,87 @@ const SharedNotes = async () => {
   const notes = await listAllNotes();
 
   return (
-    <div className="mb-8 mt-8">
-      <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 mr-2 text-[#4A154B]"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fillRule="evenodd"
-            d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
-            clipRule="evenodd"
-          />
-        </svg>
+    <div className="mb-12">
+      <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3">
+        <div className="w-8 h-8 bg-gradient-to-r from-amber-500 to-orange-600 rounded-lg flex items-center justify-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 text-white"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </div>
         Shared Notes
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {notes.map((note) => (
-          <div key={note.id} className="relative">
-            <Link
-              href={`/chat/notes/${note.id}`}
-              className="block p-4 bg-white rounded-md border border-gray-200 hover:border-[#4A154B] hover:shadow-md transition-all duration-200"
+      
+      {notes.length === 0 ? (
+        <div className="text-center py-16">
+          <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-10 w-10 text-amber-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              <div className="flex items-start space-x-3">
-                <div className="flex-shrink-0">
-                  <div className="w-10 h-10 rounded-md bg-[#4A154B] flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                      />
-                    </svg>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+          </div>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">No shared notes yet</h3>
+          <p className="text-gray-600 max-w-md mx-auto">
+            Create notes during conversations to save important information
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {notes.map((note) => (
+            <div key={note.id} className="conversation-item">
+              <Link
+                href={`/chat/notes/${note.id}`}
+                className="block"
+              >
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-md">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-gray-800 line-clamp-3 leading-relaxed mb-1">
+                      {note.markdown.slice(0, 120)}...
+                    </p>
+                    <p className="text-xs text-gray-500 font-mono">
+                      {note.id.slice(0, 8)}...
+                    </p>
                   </div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-800 truncate">
-                    {note.markdown.slice(0, 100)}...
-                  </p>
-                  <p className="text-xs text-gray-500 mt-1">
-                    ID: {note.id.slice(0, 8)}...
-                  </p>
-                </div>
-              </div>
-            </Link>
-          </div>
-        ))}
-      </div>
-
-      {notes.length === 0 && (
-        <div className="text-center py-12 bg-gray-50 rounded-md mt-4 border border-gray-200">
-          <p className="text-gray-500">No shared notes yet.</p>
+              </Link>
+            </div>
+          ))}
         </div>
       )}
     </div>

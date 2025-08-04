@@ -23,8 +23,30 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
+    --radius: 0.75rem;
     --base-font-size: 16px;
+    
+    /* Modern Design System */
+    --primary-600: 99 102 241;
+    --primary-700: 79 70 229;
+    --primary-50: 238 242 255;
+    --primary-100: 224 231 255;
+    --gray-50: 249 250 251;
+    --gray-100: 243 244 246;
+    --gray-200: 229 231 235;
+    --gray-300: 209 213 219;
+    --gray-400: 156 163 175;
+    --gray-500: 107 114 128;
+    --gray-600: 75 85 99;
+    --gray-700: 55 65 81;
+    --gray-800: 31 41 55;
+    --gray-900: 17 24 39;
+    --success-500: 34 197 94;
+    --success-100: 220 252 231;
+    --warning-500: 245 158 11;
+    --warning-100: 254 243 199;
+    --error-500: 239 68 68;
+    --error-100: 254 226 226;
   }
 
   .dark {
@@ -175,5 +197,65 @@
 
   .prose td {
     @apply border border-slate-200 px-4 py-2 text-slate-700;
+  }
+
+  /* Custom Design System Components */
+  .card-modern {
+    @apply bg-white rounded-xl border border-gray-200/60 shadow-sm hover:shadow-lg hover:border-gray-300/60 transition-all duration-200;
+  }
+
+  .button-primary {
+    @apply bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-medium px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5;
+  }
+
+  .button-secondary {
+    @apply bg-white hover:bg-gray-50 text-gray-700 font-medium px-6 py-3 rounded-xl border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md transition-all duration-200;
+  }
+
+  .button-danger {
+    @apply bg-red-500 hover:bg-red-600 text-white font-medium px-4 py-2 rounded-lg shadow-sm hover:shadow-md transition-all duration-200;
+  }
+
+  .input-modern {
+    @apply w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white/80 backdrop-blur-sm transition-all duration-200;
+  }
+
+  .nav-modern {
+    @apply sticky top-0 bg-white/95 backdrop-blur-md border-b border-gray-200/60 z-50;
+  }
+
+  .sidebar-modern {
+    @apply bg-gray-50/80 backdrop-blur-sm border-r border-gray-200/60;
+  }
+
+  .message-user {
+    @apply bg-gradient-to-r from-indigo-50 to-blue-50 border-l-4 border-indigo-500 pl-4 py-3 rounded-r-lg;
+  }
+
+  .message-assistant {
+    @apply bg-white border-l-4 border-gray-200 pl-4 py-3 rounded-r-lg;
+  }
+
+  .conversation-item {
+    @apply relative bg-white hover:bg-gray-50 border border-gray-200/60 rounded-xl p-4 transition-all duration-200 hover:shadow-md hover:border-gray-300/60;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent;
+  }
+
+  /* Line clamp utilities */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }

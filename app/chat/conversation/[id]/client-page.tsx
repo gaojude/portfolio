@@ -52,36 +52,66 @@ export default function ClientPage({
       }}
     >
       <FullHeightContainer offset={60}>
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full bg-gradient-to-br from-gray-50/50 via-white to-indigo-50/30">
           <div className="flex-1 overflow-y-auto">
-            <div className="mx-auto w-full max-w-[min(100vw,50rem)]">
+            <div className="mx-auto w-full max-w-[min(100vw,55rem)]">
               {messages.length === 0 ||
               (Array.isArray(messages[0]) &&
                 messages.length === 1 &&
                 messages[0].length === 0) ? (
-                <div className="flex flex-col items-center justify-center py-12 text-center">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-4">
-                    Welcome to Fast Chat
+                <div className="flex flex-col items-center justify-center py-20 text-center px-6">
+                  <div className="w-20 h-20 mb-8 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-10 w-10 text-indigo-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                      />
+                    </svg>
+                  </div>
+                  <h1 className="text-3xl font-bold text-gradient mb-4">
+                    Ready to Chat
                   </h1>
-                  <div className="text-gray-600 max-w-md mb-8">
-                    <p>Start a conversation by typing a message below.</p>
+                  <div className="text-gray-600 max-w-lg mb-8">
+                    <p className="text-lg leading-relaxed">
+                      Start a conversation and explore ideas with AI assistance. 
+                      Ask questions, get help with tasks, or just have a thoughtful discussion.
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-3 justify-center">
+                    <div className="px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full border border-gray-200 text-sm text-gray-600">
+                      💡 Ask for help
+                    </div>
+                    <div className="px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full border border-gray-200 text-sm text-gray-600">
+                      🤔 Explore ideas
+                    </div>
+                    <div className="px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full border border-gray-200 text-sm text-gray-600">
+                      📚 Learn something new
+                    </div>
                   </div>
                 </div>
               ) : (
                 <>
-                  <div className="bg-white border-gray-100 p-2 sm:p-8">
-                    <div className="prose prose-lg max-w-none overflow-x-auto">
+                  <div className="p-4 sm:p-8">
+                    <div className="prose prose-lg max-w-none">
                       {messages}
                     </div>
                   </div>
-                  <div className="h-[40vh]" />
+                  <div className="h-[30vh]" />
                   <div ref={bottomOfPageRef} />
                 </>
               )}
             </div>
           </div>
 
-          <div className="border-t border-gray-200 bg-white">
+          <div className="border-t border-gray-200/60 bg-white/95 backdrop-blur-md">
             <form
               ref={formRef}
               action={async () => {
@@ -97,28 +127,30 @@ export default function ClientPage({
             >
               <div
                 ref={inputRef}
-                className="mx-auto w-full max-w-[min(100vw,80rem)] p-4"
+                className="mx-auto w-full max-w-[min(100vw,55rem)] p-4 sm:p-6"
               >
                 <div className="relative">
                   <textarea
                     ref={textareaRef}
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    className="w-full px-4 py-3 pr-12 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none shadow-sm"
+                    placeholder="Type your message here..."
+                    className="input-modern resize-none min-h-[3rem] pr-14"
                     rows={2}
                   />
                   <button
                     type="submit"
-                    className="absolute bottom-3 right-3 p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 cursor-pointer transition-colors shadow-sm"
+                    disabled={!inputValue.trim()}
+                    className="absolute bottom-3 right-3 p-2.5 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-xl hover:from-indigo-700 hover:to-indigo-800 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed cursor-pointer transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 disabled:hover:transform-none"
                     aria-label="Send message"
                   >
                     <RenderFromPending
                       pendingNode={
-                        <div className="h-4 w-4 rounded-full border-2 border-white border-t-gray-600 animate-spin" />
+                        <div className="h-5 w-5 rounded-full border-2 border-white border-t-transparent animate-spin" />
                       }
                       notPendingNode={
                         <svg
-                          className="h-4 w-4"
+                          className="h-5 w-5"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"

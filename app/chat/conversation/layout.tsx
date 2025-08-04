@@ -6,9 +6,11 @@ export default function ChatLayout({
   sidebar: React.ReactNode;
 }) {
   return (
-    <div className="overflow-y-hidden flex">
-      {sidebar}
-      <div className="flex-1">{children}</div>
+    <div className="overflow-y-hidden flex bg-gradient-to-br from-gray-50/30 via-white to-indigo-50/20">
+      <div className="sidebar-modern w-80 flex-shrink-0">
+        {sidebar}
+      </div>
+      <div className="flex-1 min-w-0">{children}</div>
     </div>
   );
 }
