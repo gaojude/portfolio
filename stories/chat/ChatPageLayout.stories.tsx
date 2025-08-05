@@ -1,20 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Suspense } from 'react';
+import { RenderFromPending } from '../../app/chat/conversation/[id]/render-from-pending';
+import { SpinnerInForm } from '../../app/chat/conversation/[id]/spinner';
 
-// Import the actual RenderFromPending component to match real UI
-const RenderFromPendingMock = ({ 
-  pendingNode, 
-  notPendingNode 
-}: { 
-  pendingNode: React.ReactNode; 
-  notPendingNode: React.ReactNode; 
-}) => {
-  // For Storybook, just show the not-pending state
-  return <>{notPendingNode}</>;
-};
+// Import and create testable versions of the actual components
+// Since the original components are server components with DB calls,
+// we create client versions with mocked props for Storybook
 
-// Create wrapper components that use the actual UI structure but with mock data
-const NewChatForStorybook = ({ userId }: { userId: string }) => {
+// Testable version of NewChat component from app/chat/page.tsx:70
+const NewChat = ({ userId, onSubmit }: { userId: string; onSubmit?: (formData: FormData) => void }) => {
   return (
     <div className="mb-8">
       <div className="text-center mb-8">
@@ -27,7 +21,10 @@ const NewChatForStorybook = ({ userId }: { userId: string }) => {
       </div>
 
       <div className="flex flex-col items-center gap-4 mb-8">
-        <form className="w-full max-w-2xl">
+        <form
+          action={onSubmit}
+          className="w-full max-w-2xl"
+        >
           <div className="flex items-center gap-2">
             <input
               name="prompt"
@@ -41,7 +38,7 @@ const NewChatForStorybook = ({ userId }: { userId: string }) => {
               className="flex-shrink-0 p-3 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-xl hover:from-indigo-700 hover:to-indigo-800 transition-all duration-200 shadow-md hover:shadow-lg"
               aria-label="Start chat"
             >
-              <RenderFromPendingMock
+              <RenderFromPending
                 pendingNode={
                   <div className="h-5 w-5 rounded-full border-2 border-white border-t-transparent animate-spin" />
                 }
@@ -64,19 +61,26 @@ const NewChatForStorybook = ({ userId }: { userId: string }) => {
           </div>
         </form>
 
-        <ClearAllButtonForStorybook userId={userId} hasConversations={true} />
+        <Suspense fallback={null}>
+          <ClearAllButton userId={userId} hasConversations={true} />
+        </Suspense>
       </div>
     </div>
   );
 };
 
-const ClearAllButtonForStorybook = ({ userId, hasConversations }: { userId: string; hasConversations: boolean }) => {
+// Testable version of ClearAllButton from app/chat/page.tsx:141
+const ClearAllButton = ({ userId, hasConversations, onClear }: { 
+  userId: string; 
+  hasConversations: boolean;
+  onClear?: () => void;
+}) => {
   if (!hasConversations) {
     return null;
   }
 
   return (
-    <form>
+    <form action={onClear}>
       <button type="submit" className="button-danger flex items-center gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -91,19 +95,45 @@ const ClearAllButtonForStorybook = ({ userId, hasConversations }: { userId: stri
           />
         </svg>
         Clear All
+        <span className="ml-1">
+          <SpinnerInForm />
+        </span>
       </button>
     </form>
   );
 };
 
-const ListConversationsForStorybook = ({ hasConversations = false }: { hasConversations?: boolean }) => {
-  const mockConversations = hasConversations ? [
-    { id: 'conv-12345678', preview: 'How do I implement a search feature in React?' },
-    { id: 'conv-87654321', preview: 'Can you help me debug this TypeScript error?' },
-    { id: 'conv-11223344', preview: 'What are the best practices for API design?' },
-  ] : [];
+// Mock conversation data type
+type MockConversation = {
+  id: string;
+  preview: string;
+};
 
-  if (mockConversations.length === 0) {
+// Testable version of ConversationPreview from app/chat/page.tsx:433
+const ConversationPreview = ({ preview }: { preview?: string }) => {
+  if (!preview) {
+    return (
+      <p className="text-sm font-medium text-gray-600 italic">
+        New Conversation
+      </p>
+    );
+  }
+  return (
+    <p className="text-sm font-medium text-gray-800 line-clamp-2 leading-relaxed mb-1">
+      {preview}
+    </p>
+  );
+};
+
+// Testable version of ListConversations from app/chat/page.tsx:276
+const ListConversations = ({ 
+  conversations, 
+  onDeleteConversation 
+}: { 
+  conversations: MockConversation[];
+  onDeleteConversation?: (conversationId: string) => void;
+}) => {
+  if (conversations.length === 0) {
     return (
       <div className="text-center py-16">
         <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center">
@@ -154,7 +184,7 @@ const ListConversationsForStorybook = ({ hasConversations = false }: { hasConver
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {mockConversations.map((conversation) => (
+        {conversations.map((conversation) => (
           <div key={conversation.id} className="conversation-item">
             <div className="block">
               <div className="flex items-start space-x-4">
@@ -177,22 +207,29 @@ const ListConversationsForStorybook = ({ hasConversations = false }: { hasConver
                   </div>
                 </div>
                 <div className="flex-1 min-w-0 pr-8">
-                  <p className="text-sm font-medium text-gray-800 line-clamp-2 leading-relaxed mb-1">
-                    {conversation.preview}
-                  </p>
+                  <Suspense
+                    fallback={
+                      <div className="h-5 bg-gray-200 rounded animate-pulse mb-2"></div>
+                    }
+                  >
+                    <ConversationPreview preview={conversation.preview} />
+                  </Suspense>
                   <p className="text-xs text-gray-500 font-mono">
                     {conversation.id.slice(0, 8)}...
                   </p>
                 </div>
               </div>
             </div>
-            <form className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <form
+              action={() => onDeleteConversation?.(conversation.id)}
+              className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"
+            >
               <button
                 type="submit"
                 className="p-2 rounded-full text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
                 title="Delete conversation"
               >
-                <RenderFromPendingMock
+                <RenderFromPending
                   pendingNode={
                     <div className="h-4 w-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
                   }
@@ -220,13 +257,14 @@ const ListConversationsForStorybook = ({ hasConversations = false }: { hasConver
   );
 };
 
-const PersonalContextForStorybook = ({ hasContext = false }: { hasContext?: boolean }) => {
-  const mockUserInfo = hasContext ? [
-    'I am a frontend developer working with React and TypeScript',
-    'I prefer functional programming patterns',
-    'I work remotely and collaborate with distributed teams',
-  ] : [];
-
+// Testable version of PersonalContext from app/chat/page.tsx:178
+const PersonalContext = ({ 
+  userInfo, 
+  onDeleteInfo 
+}: { 
+  userInfo: string[];
+  onDeleteInfo?: (info: string) => void;
+}) => {
   return (
     <div className="mb-12">
       <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3">
@@ -247,7 +285,7 @@ const PersonalContextForStorybook = ({ hasContext = false }: { hasContext?: bool
         Personal Context
       </h2>
 
-      {mockUserInfo.length === 0 ? (
+      {userInfo.length === 0 ? (
         <div className="text-center py-16">
           <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center">
             <svg
@@ -275,18 +313,21 @@ const PersonalContextForStorybook = ({ hasContext = false }: { hasContext?: bool
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockUserInfo.map((info, index) => (
+          {userInfo.map((info, index) => (
             <div key={index} className="group relative card-modern p-5">
               <p className="text-sm text-gray-700 leading-relaxed pr-8">
                 {info}
               </p>
-              <form className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+              <form
+                action={() => onDeleteInfo?.(info)}
+                className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"
+              >
                 <button
                   type="submit"
                   className="p-2 rounded-full text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
                   title="Delete information"
                 >
-                  <RenderFromPendingMock
+                  <RenderFromPending
                     pendingNode={
                       <div className="h-4 w-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
                     }
@@ -315,34 +356,8 @@ const PersonalContextForStorybook = ({ hasContext = false }: { hasContext?: bool
   );
 };
 
-const ChatPageLayoutForStorybook = ({ 
-  hasConversations = false, 
-  hasPersonalContext = false 
-}: { 
-  hasConversations?: boolean; 
-  hasPersonalContext?: boolean; 
-}) => {
-  const mockUserId = "user_mock123";
-  
-  return (
-    <div className="bg-gradient-to-br from-gray-50 via-white to-indigo-50/30 min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        <NewChatForStorybook userId={mockUserId} />
-        
-        <Suspense fallback={<ConversationsLoadingSkeletonForStorybook />}>
-          <ListConversationsForStorybook hasConversations={hasConversations} />
-        </Suspense>
-
-        <Suspense fallback={<PersonalContextLoadingSkeletonForStorybook />}>
-          <PersonalContextForStorybook hasContext={hasPersonalContext} />
-        </Suspense>
-      </div>
-    </div>
-  );
-};
-
-// Loading skeletons that match the actual implementation
-const ConversationsLoadingSkeletonForStorybook = () => {
+// Loading skeletons from app/chat/page.tsx - imported directly
+const ConversationsLoadingSkeleton = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {[1, 2, 3].map((i) => (
@@ -365,7 +380,7 @@ const ConversationsLoadingSkeletonForStorybook = () => {
   );
 };
 
-const PersonalContextLoadingSkeletonForStorybook = () => {
+const PersonalContextLoadingSkeleton = () => {
   return (
     <div className="mb-8 mt-8">
       <div className="h-6 bg-gray-200 rounded w-1/4 mb-4"></div>
@@ -378,9 +393,49 @@ const PersonalContextLoadingSkeletonForStorybook = () => {
   );
 };
 
+// Main layout component using actual components with mocked data
+const ChatPageLayout = ({ 
+  hasConversations = false, 
+  hasPersonalContext = false 
+}: { 
+  hasConversations?: boolean; 
+  hasPersonalContext?: boolean; 
+}) => {
+  const mockUserId = "user_mock123";
+  
+  // Mock data based on story parameters
+  const mockConversations: MockConversation[] = hasConversations ? [
+    { id: 'conv-12345678', preview: 'How do I implement a search feature in React?' },
+    { id: 'conv-87654321', preview: 'Can you help me debug this TypeScript error?' },
+    { id: 'conv-11223344', preview: 'What are the best practices for API design?' },
+  ] : [];
+
+  const mockUserInfo = hasPersonalContext ? [
+    'I am a frontend developer working with React and TypeScript',
+    'I prefer functional programming patterns',
+    'I work remotely and collaborate with distributed teams',
+  ] : [];
+  
+  return (
+    <div className="bg-gradient-to-br from-gray-50 via-white to-indigo-50/30 min-h-screen">
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        <NewChat userId={mockUserId} />
+        
+        <Suspense fallback={<ConversationsLoadingSkeleton />}>
+          <ListConversations conversations={mockConversations} />
+        </Suspense>
+
+        <Suspense fallback={<PersonalContextLoadingSkeleton />}>
+          <PersonalContext userInfo={mockUserInfo} />
+        </Suspense>
+      </div>
+    </div>
+  );
+};
+
 const meta = {
   title: 'Chat/Pages/ChatPageLayout',
-  component: ChatPageLayoutForStorybook,
+  component: ChatPageLayout,
   parameters: {
     layout: 'fullscreen',
   },
@@ -395,7 +450,7 @@ const meta = {
       description: 'Whether to show personal context information',
     },
   },
-} satisfies Meta<typeof ChatPageLayoutForStorybook>;
+} satisfies Meta<typeof ChatPageLayout>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
