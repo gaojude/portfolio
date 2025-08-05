@@ -1,0 +1,32 @@
+
+> portfolio@0.1.0 build-storybook /home/judegao/projects/portfolio
+> storybook build "--output-dir=/tmp/chromatic--207336-JZJBtgz7Bb2d"
+
+[1m@storybook/core v8.6.14
+[22m
+info => Cleaning outputDir: [36m../../../../tmp/chromatic--207336-JZJBtgz7Bb2d[39m
+info => Loading presets
+info => Building manager..
+WARN unable to find package.json for openai
+info => Manager built ([38;2;181;126;229m253 ms[39m)
+info => Building preview..
+info Addon-docs: using MDX3
+info => Using implicit CSS loaders
+info => Using SWC as compiler
+info => Using default Webpack5 setup
+info Using tsconfig paths for react-docgen
+WARN asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).
+WARN This can impact web performance.
+WARN Assets: 
+WARN   135.882c948f.iframe.bundle.js (372 KiB)
+WARN   684.b4a5b288.iframe.bundle.js (2.01 MiB)
+WARN   352.90f4d699.iframe.bundle.js (985 KiB)
+WARN entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (244 KiB). This can impact web performance.
+WARN Entrypoints:
+WARN   main (2.17 MiB)
+WARN       runtime~main.9d909792.iframe.bundle.js
+WARN       684.b4a5b288.iframe.bundle.js
+WARN       main.c388b5cf.iframe.bundle.js
+WARN 
+info => Preview built ([38;2;181;126;229m13 s[39m)
+info => Output directory: /tmp/chromatic--207336-JZJBtgz7Bb2d
