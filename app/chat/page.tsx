@@ -10,8 +10,6 @@ import {
   deleteConversation,
   getConversationsByUser,
   getFirstMessageOfConversation,
-  getUserInformation,
-  deleteUserInformation,
   deleteAllConversations,
 } from "../db/redis";
 
@@ -31,9 +29,6 @@ async function PageContent() {
           <ListConversations userId={userId} />
         </Suspense>
 
-        <Suspense fallback={<PersonalContextLoadingSkeleton />}>
-          <PersonalContext />
-        </Suspense>
       </div>
     </div>
   );
@@ -53,7 +48,6 @@ const ChatPageFallback = () => {
           </div>
         </div>
         <ConversationsLoadingSkeleton />
-        <PersonalContextLoadingSkeleton />
       </div>
     </div>
   );
@@ -136,103 +130,6 @@ const NewChat = ({ userId }: { userId: string }) => {
 };
 
 
-const PersonalContext = async () => {
-  const userInfo = await getUserInformation();
-
-  return (
-    <div className="mb-12">
-      <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3">
-        <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-white"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </div>
-        Personal Context
-      </h2>
-
-      {userInfo.length === 0 ? (
-        <div className="text-center py-16">
-          <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-10 w-10 text-green-600"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-              />
-            </svg>
-          </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
-            No personal context yet
-          </h3>
-          <p className="text-gray-600 max-w-md mx-auto">
-            Share information about yourself to help AI provide more
-            personalized responses
-          </p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {userInfo.map((info, index) => (
-            <div key={index} className="group relative card-modern p-5">
-              <p className="text-sm text-gray-700 leading-relaxed pr-8">
-                {info}
-              </p>
-              <form
-                action={async () => {
-                  "use server";
-                  await deleteUserInformation(info);
-                  revalidatePath("/chat");
-                }}
-                className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"
-              >
-                <button
-                  type="submit"
-                  className="p-2 rounded-full text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
-                  title="Delete information"
-                >
-                  <RenderFromPending
-                    pendingNode={
-                      <div className="h-4 w-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
-                    }
-                    notPendingNode={
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    }
-                  />
-                </button>
-              </form>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
 
 const ListConversations = async ({ userId }: { userId: string }) => {
   const conversations = await getConversationsByUser(userId);
@@ -439,15 +336,3 @@ const ConversationPreview = async ({
   );
 };
 
-const PersonalContextLoadingSkeleton = () => {
-  return (
-    <div className="mb-8 mt-8">
-      <div className="h-6 bg-gray-200 rounded w-1/4 mb-4"></div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {[1, 2].map((i) => (
-          <div key={i} className="h-16 bg-gray-200 rounded"></div>
-        ))}
-      </div>
-    </div>
-  );
-};

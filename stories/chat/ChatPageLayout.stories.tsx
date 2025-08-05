@@ -155,106 +155,17 @@ const ConversationsListMock = ({ hasConversations = false }: { hasConversations?
   );
 };
 
-const PersonalContextMock = ({ hasContext = false }: { hasContext?: boolean }) => {
-  if (!hasContext) {
-    return (
-      <div className="mb-12">
-        <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3">
-          <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-white"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
-          Personal Context
-        </h2>
-
-        <div className="text-center py-16">
-          <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-10 w-10 text-green-600"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-              />
-            </svg>
-          </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
-            No personal context yet
-          </h3>
-          <p className="text-gray-600 max-w-md mx-auto">
-            Share information about yourself to help AI provide more personalized responses
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="mb-12">
-      <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3">
-        <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-white"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </div>
-        Personal Context
-      </h2>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {[
-          'I am a frontend developer working with React and TypeScript',
-          'I prefer functional programming patterns',
-          'I work remotely and collaborate with distributed teams',
-        ].map((info, index) => (
-          <div key={index} className="group relative card-modern p-5">
-            <p className="text-sm text-gray-700 leading-relaxed pr-8">
-              {info}
-            </p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
 
 const ChatPageLayout = ({ 
-  hasConversations = false, 
-  hasPersonalContext = false 
+  hasConversations = false 
 }: { 
   hasConversations?: boolean; 
-  hasPersonalContext?: boolean; 
 }) => {
   return (
     <div className="bg-gradient-to-br from-gray-50 via-white to-indigo-50/30 min-h-screen">
       <div className="max-w-7xl mx-auto px-6 py-8">
         <NewChatMock />
         <ConversationsListMock hasConversations={hasConversations} />
-        <PersonalContextMock hasContext={hasPersonalContext} />
       </div>
     </div>
   );
@@ -272,10 +183,6 @@ const meta = {
       control: 'boolean',
       description: 'Whether to show existing conversations',
     },
-    hasPersonalContext: {
-      control: 'boolean',
-      description: 'Whether to show personal context information',
-    },
   },
 } satisfies Meta<typeof ChatPageLayout>;
 
@@ -285,27 +192,11 @@ type Story = StoryObj<typeof meta>;
 export const EmptyState: Story = {
   args: {
     hasConversations: false,
-    hasPersonalContext: false,
   },
 };
 
 export const WithConversations: Story = {
   args: {
     hasConversations: true,
-    hasPersonalContext: false,
-  },
-};
-
-export const WithPersonalContext: Story = {
-  args: {
-    hasConversations: false,
-    hasPersonalContext: true,
-  },
-};
-
-export const FullState: Story = {
-  args: {
-    hasConversations: true,
-    hasPersonalContext: true,
   },
 };
