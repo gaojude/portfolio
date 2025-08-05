@@ -1,14 +1,23 @@
-import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
-export default async function Page() {
+async function RedirectHandler() {
+  const { auth } = await import("@clerk/nextjs/server");
+  const { redirect } = await import("next/navigation");
   const { userId } = await auth();
   
   if (userId) {
     redirect("/chat");
   }
+  
+  return null;
+}
 
+export default function Page() {
   return (
+    <>
+      <Suspense fallback={null}>
+        <RedirectHandler />
+      </Suspense>
     <div className="px-4 max-w-full">
       <div className="flex flex-wrap justify-center gap-6 my-8">
         {/* GitHub Icon */}
@@ -79,6 +88,7 @@ export default async function Page() {
           </svg>
         </a>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
