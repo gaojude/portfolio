@@ -39,10 +39,12 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased bg-grey-50">
-        <Suspense>
-          <TopNav />
-          {children}
-        </Suspense>
+        <ClerkProvider afterSignOutUrl="/chat">
+          <Suspense>
+            <TopNav />
+            {children}
+          </Suspense>
+        </ClerkProvider>
       </body>
     </html>
   );
@@ -116,11 +118,9 @@ const TopNav = () => {
 const ClerkUserButton = () => {
   return (
     <div className="w-[32px] h-[32px] rounded-lg border border-gray-200 bg-white/80 backdrop-blur-sm hover:bg-white transition-colors">
-      <ClerkProvider afterSignOutUrl="/chat">
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
-      </ClerkProvider>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
     </div>
   );
 };
