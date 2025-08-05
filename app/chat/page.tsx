@@ -79,35 +79,51 @@ const NewChat = ({ userId }: { userId: string }) => {
         </p>
       </div>
 
-      <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8">
+      <div className="flex flex-col items-center gap-4 mb-8">
         <form
-          action={async () => {
+          action={async (formData: FormData) => {
             "use server";
+            const initialPrompt = formData.get("prompt") as string;
             const conversation = await createConversation({ userId });
-            redirect(`/chat/conversation/${conversation.id}`);
+            
+            if (initialPrompt?.trim()) {
+              redirect(`/chat/conversation/${conversation.id}?prompt=${encodeURIComponent(initialPrompt)}`);
+            } else {
+              redirect(`/chat/conversation/${conversation.id}`);
+            }
           }}
+          className="w-full max-w-2xl"
         >
-          <button
-            type="submit"
-            className="button-primary flex items-center gap-3"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
+          <div className="relative">
+            <input
+              name="prompt"
+              type="text"
+              placeholder="Type your message and press Enter to start chatting..."
+              className="w-full px-4 py-3 pr-16 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent shadow-sm transition-all duration-200"
+              autoFocus
+            />
+            <button
+              type="submit"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2.5 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-lg hover:from-indigo-700 hover:to-indigo-800 transition-all duration-200 shadow-md hover:shadow-lg"
+              aria-label="Start chat"
             >
-              <path
-                fillRule="evenodd"
-                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                clipRule="evenodd"
-              />
-            </svg>
-            Start New Chat
-            <span className="ml-1">
-              <SpinnerInForm />
-            </span>
-          </button>
+              <svg
+                className="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+              <span className="ml-1">
+                <SpinnerInForm />
+              </span>
+            </button>
+          </div>
         </form>
 
         <Suspense fallback={null}>
