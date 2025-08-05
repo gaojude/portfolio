@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { revalidatePath } from "next/cache";
 import { RenderFromPending } from "./conversation/[id]/render-from-pending";
+import { SpinnerInForm } from "./conversation/[id]/spinner";
 import { auth } from "@clerk/nextjs/server";
 import {
   createConversation,
@@ -11,6 +12,7 @@ import {
   getFirstMessageOfConversation,
   getUserInformation,
   deleteUserInformation,
+  deleteAllConversations,
 } from "../db/redis";
 
 async function PageContent() {
@@ -267,23 +269,51 @@ const ListConversations = async ({ userId }: { userId: string }) => {
 
   return (
     <div className="mb-12">
-      <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3">
-        <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-white"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </div>
-        Recent Conversations
-      </h2>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-semibold text-gray-900 flex items-center gap-3">
+          <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 text-white"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+          Recent Conversations
+        </h2>
+        <form
+          action={async () => {
+            "use server";
+            await deleteAllConversations(userId);
+            revalidatePath("/chat");
+          }}
+        >
+          <button type="submit" className="button-danger flex items-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                clipRule="evenodd"
+              />
+            </svg>
+            Clear All
+            <span className="ml-1">
+              <SpinnerInForm />
+            </span>
+          </button>
+        </form>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {conversations.map((conversation) => (
