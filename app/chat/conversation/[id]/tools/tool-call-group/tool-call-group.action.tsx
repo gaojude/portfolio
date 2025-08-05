@@ -11,7 +11,6 @@ export const completeToolCallServerAction = async (
   payload: CompleteToolCallPayload
 ) => {
   const { conversationId, toolCallResults } = await completeToolCall(payload);
-  console.log("toolCallResults", toolCallResults);
 
   const allDone = toolCallResults.every((r) => r.$completed);
   if (!allDone) {

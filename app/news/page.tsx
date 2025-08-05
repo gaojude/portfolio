@@ -5,7 +5,6 @@ import { listAllTranslatedStories } from "@/app/db/redis";
 import { cacheTag } from "next/dist/server/use-cache/cache-tag";
 import { cacheLife } from "next/dist/server/use-cache/cache-life";
 
-// import { cacheLife } from "next/dist/server/use-cache/cache-life";
 
 export default async function NewsPage() {
   "use cache: remote";
