@@ -114,7 +114,6 @@ const SearchContent = async ({
     <Suspense key={query}>
       <div className="rounded-lg border border-gray-200 p-4 sm:p-6 bg-white shadow-md">
         <RenderSearch query={query} />
-        {/* <RenderImage query={query} /> */}
       </div>
     </Suspense>
   );
