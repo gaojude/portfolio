@@ -39,12 +39,12 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased bg-grey-50">
-        <ClerkProvider afterSignOutUrl="/chat">
-          <Suspense>
+        <Suspense>
+          <ClerkProvider afterSignOutUrl="/chat">
             <TopNav />
             {children}
-          </Suspense>
-        </ClerkProvider>
+          </ClerkProvider>
+        </Suspense>
       </body>
     </html>
   );
