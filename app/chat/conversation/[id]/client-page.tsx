@@ -18,6 +18,7 @@ export default function ClientPage({
   const inputRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [initialPromptProcessed, setInitialPromptProcessed] = useState(false);
 
   const [messages, setMessages] = useState<ReactNode[]>([
     initialMessagesReactNode,
@@ -43,6 +44,33 @@ export default function ClientPage({
   useEffect(() => {
     textareaRef.current?.focus();
   }, []);
+
+  useEffect(() => {
+    const handleInitialPrompt = async () => {
+      if (initialPromptProcessed) return;
+      
+      const urlParams = new URLSearchParams(window.location.search);
+      const initialPrompt = urlParams.get('prompt');
+      
+      if (initialPrompt?.trim()) {
+        setInitialPromptProcessed(true);
+        
+        // Clean the URL by removing the prompt parameter
+        const newUrl = new URL(window.location.href);
+        newUrl.searchParams.delete('prompt');
+        window.history.replaceState({}, '', newUrl.toString());
+        
+        // Send the initial prompt as the first message
+        const newNode = await getMessageReactNode(conversationId, initialPrompt);
+        setMessages((prev) => [...prev, newNode]);
+        bottomOfPageRef.current?.scrollIntoView({ behavior: "smooth" });
+      } else {
+        setInitialPromptProcessed(true);
+      }
+    };
+
+    handleInitialPrompt();
+  }, [conversationId, getMessageReactNode, initialPromptProcessed]);
 
   return (
     <NewResponseProvider
