@@ -1,11 +1,9 @@
 import { CoreMessage, LanguageModelV1, streamText } from "ai";
 import { TOOLS } from "./supported-tools/tools";
-import { getUserInformation, Message } from "@/app/db/redis";
+import { Message } from "@/app/db/redis";
 import { DEFAULT_MODEL } from "@/lib/models";
 
 export const getLlmStream = async (messages: Message[]) => {
-  const userInformation = (await getUserInformation()).join(" ");
-
   return await streamText({
     model: DEFAULT_MODEL as LanguageModelV1,
     messages: [
@@ -18,12 +16,6 @@ export const getLlmStream = async (messages: Message[]) => {
         4. If you're unsure about something, use the appropriate tool to verify information
         5. Maintain a professional and helpful tone while being concise
         6. For LaTex, use $...$ to render inline and $$...$$ to render block, do not use square brackets if possible.`,
-      },
-      {
-        role: "system",
-        content: `User Context: ${
-          userInformation || "No specific user information available"
-        }`,
       },
       {
         role: "system",

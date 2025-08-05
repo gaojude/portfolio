@@ -313,65 +313,7 @@ export async function updateReminder(
   return true;
 }
 
-// For each user, we need to store a list of strings that contains information about that user.
-// For instance, their name, their location, etc.
-// We need to append to that list whenever the user unveils new information about themselves.
-// We need to be able to retrieve the entire list of strings at any time.
 
-/**
- * Adds a new piece of information about a user
- * @param information The new information to add
- * @returns Boolean indicating whether the operation was successful
- */
-export async function addUserInformation(
-  information: string
-): Promise<boolean> {
-  try {
-    const userId = await getUserId();
-    await redis.rpush(`user:${userId}:information`, information);
-    return true;
-  } catch (error) {
-    console.error("Error adding user information:", error);
-    return false;
-  }
-}
-
-/**
- * Retrieves all information stored about a user
- * @returns Array of user information strings
- */
-export async function getUserInformation(): Promise<string[]> {
-  try {
-    const userId = await getUserId();
-    const informationArray = await redis.lrange(
-      `user:${userId}:information`,
-      0,
-      -1
-    );
-    return informationArray;
-  } catch (error) {
-    console.error("Error retrieving user information:", error);
-    return [];
-  }
-}
-
-/**
- * Deletes a specific piece of user information
- * @param information The information to delete
- * @returns Boolean indicating whether the operation was successful
- */
-export async function deleteUserInformation(
-  information: string
-): Promise<boolean> {
-  try {
-    const userId = await getUserId();
-    await redis.lrem(`user:${userId}:information`, 0, information);
-    return true;
-  } catch (error) {
-    console.error("Error deleting user information:", error);
-    return false;
-  }
-}
 
 export async function deleteAllConversations(userId: string): Promise<void> {
   // Get all conversation IDs for this user

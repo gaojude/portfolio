@@ -9,11 +9,9 @@ import React, { ReactNode, Suspense } from "react";
 import { v4 as uuid } from "uuid";
 import { AssistantMessageWrapperV2 } from "./assistant-message-wrapper-v2";
 import { DeleteAllNodesWithMessageId } from "./delete-all-nodes-with-message-id";
-import { extractUserInformation } from "./extract-user-information";
 import { createMarkdownBlockGeneratorFromLlmReader } from "./parser";
 import { ParseToMarkdown, UserMessageWrapper } from "./render-message";
 import { Spinner } from "./spinner";
-import Collapsable from "../../../components/collapsable.client";
 import { getLlmStream } from "./tools/llm";
 import {
   ToolCallGroup,
@@ -108,32 +106,6 @@ export const getMessageReactNode = async (
     ...(newUserMessage ? [newUserMessage] : []),
   ]);
 
-  const extractUserInformationPromise = messageContent
-    ? extractUserInformation(
-        "<Ctx>" +
-          (messages.length >= 2 ? messages.at(-2)?.content : "") +
-          "</Ctx>" +
-          "<Ans>" +
-          (messages.length >= 1 ? messages.at(-1)?.content : "") +
-          "</Ans>"
-      )
-    : null;
-
-  const ExtractUserInformation = async () => {
-    if (extractUserInformationPromise === null) {
-      return null;
-    }
-    const extractedUserInformation = await extractUserInformationPromise;
-    if (extractedUserInformation.found) {
-      return (
-        <Collapsable title="Recorded personal info">
-          Debug Info: We learned [{extractedUserInformation.information}]
-        </Collapsable>
-      );
-    } else {
-      return null;
-    }
-  };
 
   const StreamAssistantMessage = async () => {
     // For a new message to LLM, you need to send all previous messages
@@ -341,9 +313,6 @@ export const getMessageReactNode = async (
       {messageContent !== null ? (
         <UserMessageWrapper>
           {messageContent}
-          <Suspense fallback={null}>
-            <ExtractUserInformation />
-          </Suspense>
         </UserMessageWrapper>
       ) : null}
       <Suspense fallback={<Spinner />}>
