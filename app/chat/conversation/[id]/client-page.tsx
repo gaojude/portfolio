@@ -157,19 +157,19 @@ export default function ClientPage({
                 ref={inputRef}
                 className="mx-auto w-full max-w-[min(100vw,55rem)] p-4 sm:p-6"
               >
-                <div className="relative">
+                <div className="flex items-end gap-2">
                   <textarea
                     ref={textareaRef}
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Type your message here..."
-                    className="input-modern resize-none min-h-[3rem] pr-14"
+                    className="input-modern resize-none min-h-[3rem] flex-1"
                     rows={2}
                   />
                   <button
                     type="submit"
                     disabled={!inputValue.trim()}
-                    className="absolute bottom-3 right-3 p-2.5 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-xl hover:from-indigo-700 hover:to-indigo-800 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed cursor-pointer transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 disabled:hover:transform-none"
+                    className="flex-shrink-0 p-3 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-xl hover:from-indigo-700 hover:to-indigo-800 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed cursor-pointer transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 disabled:hover:transform-none"
                     aria-label="Send message"
                   >
                     <RenderFromPending

@@ -94,17 +94,17 @@ const NewChat = ({ userId }: { userId: string }) => {
           }}
           className="w-full max-w-2xl"
         >
-          <div className="relative">
+          <div className="flex items-center gap-2">
             <input
               name="prompt"
               type="text"
               placeholder="Type your message and press Enter to start chatting..."
-              className="w-full px-4 py-3 pr-16 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent shadow-sm transition-all duration-200"
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent shadow-sm transition-all duration-200"
               autoFocus
             />
             <button
               type="submit"
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2.5 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-lg hover:from-indigo-700 hover:to-indigo-800 transition-all duration-200 shadow-md hover:shadow-lg"
+              className="flex-shrink-0 p-3 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-xl hover:from-indigo-700 hover:to-indigo-800 transition-all duration-200 shadow-md hover:shadow-lg"
               aria-label="Start chat"
             >
               <svg
