@@ -11,9 +11,6 @@ export const getNextMessage = async (
   party: "asker" | "responder",
   phase: Phase
 ) => {
-  console.log({
-    phase,
-  });
 
   const allMessages = [
     phase === "zero-to-one"

@@ -48,13 +48,11 @@ export const getAndCacheTranslatedStory = async (storyId: number) => {
         translatedContent,
         originalStory.url
       );
-      console.log("translate story [end]");
     } catch (error) {
       // TODO: we should store a seninel value representing an error and should be filgered out from the article list.
       story = await storeTranslatedStory(storyId, "-", "-", "-", "-");
       console.error("Error fetching and translating story", error);
     }
-    console.log("Translated story", storyId);
   }
 
   return story;
