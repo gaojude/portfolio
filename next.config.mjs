@@ -11,6 +11,15 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   reactStrictMode: false,
+  async redirects() {
+    return [
+      {
+        source: '/meet',
+        destination: 'https://cal.com/jude-gao-ymrglb/30min',
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
