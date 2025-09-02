@@ -12,6 +12,23 @@ export default function Page() {
       <LineItemContainer>
         <LineItemHeading>
           <a
+            href="https://nextjs.org/blog/next-15-3"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Next.js 15.3
+          </a>
+        </LineItemHeading>
+        <LineItemSubheading>Jan 23, 2025</LineItemSubheading>
+        <LineItemDescription>
+          Next.js 15.3 introduces Server Component HMR, enhanced Static
+          Generation performance, and improved observability with next/trace.
+        </LineItemDescription>
+      </LineItemContainer>
+
+      <LineItemContainer>
+        <LineItemHeading>
+          <a
             href="https://craft.faire.com/zero-runtime-localization-in-next-js-864e252e387d"
             target="_blank"
             rel="noopener noreferrer"

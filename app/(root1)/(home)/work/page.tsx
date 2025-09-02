@@ -12,7 +12,7 @@ export default function Page() {
       <LineItemContainer>
         <LineItemHeading>Vercel</LineItemHeading>
         <LineItemSubheading>2024 - Present</LineItemSubheading>
-        <LineItemDescription>Maintainer of Next.js</LineItemDescription>
+        <LineItemDescription>Core Maintainer of Next.js</LineItemDescription>
       </LineItemContainer>
 
       <LineItemContainer>
