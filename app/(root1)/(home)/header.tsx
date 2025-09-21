@@ -7,7 +7,7 @@ export const Header = () => {
   const selectedPage = useSelectedPage();
   return (
     <div className="absolute top-8 left-8 z-10">
-      <ViewTransition name={selectedPage}>
+      <ViewTransition key={`header-${selectedPage}`} name={selectedPage}>
         <h1 className="text-6xl font-bold tracking-tight uppercase">
           {selectedPage}
         </h1>
