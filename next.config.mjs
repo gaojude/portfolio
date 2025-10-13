@@ -3,13 +3,9 @@ const nextConfig = {
   experimental: {
     cacheComponents: true,
     inlineCss: true,
-    reactCompiler: true,
-    viewTransition: true,
     clientSegmentCache: true,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  reactCompiler: true,
   reactStrictMode: false,
   async redirects() {
     return [

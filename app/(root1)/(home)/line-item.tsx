@@ -1,7 +1,9 @@
+import { ReactNode } from "react";
+
 export const LineItemOuterContainer = ({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) => {
   return (
     <div className="px-4 sm:px-0">
@@ -17,7 +19,7 @@ export const LineItemOuterContainer = ({
 export const LineItemContainer = ({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) => {
   return <div className="mb-10">{children}</div>;
 };
@@ -25,7 +27,7 @@ export const LineItemContainer = ({
 export const LineItemHeading = ({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) => {
   return (
     <h3 className="text-xl font-semibold text-balance mb-2">{children}</h3>
@@ -35,7 +37,7 @@ export const LineItemHeading = ({
 export const LineItemSubheading = ({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) => {
   return (
     <p className="text-sm text-gray-600 dark:text-gray-300 text-balance mb-3">
@@ -47,7 +49,7 @@ export const LineItemSubheading = ({
 export const LineItemDescription = ({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) => {
   return <p className="mt-3 text-sm sm:text-base text-balance">{children}</p>;
 };
