@@ -1,17 +1,8 @@
 {
   "mcpServers": {
-    "vector": {
-      "type": "stdio",
+    "next-devtools": {
       "command": "node",
-      "args": ["/Users/judegao/repos/vector/packages/mcp/dist/index.js"]
-    },
-    "nextjs-dev": {
-      "type": "http",
-      "url": "http://localhost:3000/_next/mcp"
-    },
-    "chrome-devtools": {
-      "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest"]
+      "args": ["/Users/judegao/main-repos/next-devtools-mcp/dist/stdio.js"]
     }
   }
 }
