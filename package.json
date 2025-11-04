@@ -36,7 +36,7 @@
     "lucide-react": "^0.447.0",
     "marked": "^15.0.6",
     "marked-katex-extension": "^5.1.4",
-    "next": "16.0.0-canary.3",
+    "next": "16.0.1",
     "next-themes": "^0.4.6",
     "openai": "^4.98.0",
     "p-limit": "^6.2.0",
@@ -69,10 +69,10 @@
     "@storybook/react": "^8.5.0",
     "@storybook/test": "^8.5.0",
     "@types/node": "^20",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.1",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
     "eslint": "^8",
-    "eslint-config-next": "14.2.14",
+    "eslint-config-next": "16.0.1",
     "postcss": "^8",
     "storybook": "^8.5.0",
     "tailwindcss": "^3.4.1",
@@ -82,6 +82,10 @@
   "pnpm": {
     "patchedDependencies": {
       "katex@0.16.21": "patches/katex@0.16.21.patch"
+    },
+    "overrides": {
+      "@types/react": "19.2.2",
+      "@types/react-dom": "19.2.2"
     }
   }
 }
